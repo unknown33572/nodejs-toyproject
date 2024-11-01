@@ -1,5 +1,5 @@
-import { oddSecond, evenSecond } from "./exportECMAVar.js";
-import checkStringOddOrEven from "./exportECMAFunc.js";
+// import { oddSecond, evenSecond } from "./exportECMAVar.js";
+// import checkStringOddOrEven from "./exportECMAFunc.js";
 
 
 //#region CommonJS
@@ -37,13 +37,28 @@ import checkStringOddOrEven from "./exportECMAFunc.js";
 // console.log(import.meta.url);
 // console.log(import.meta.env);
 
-import { setTimeout, setInterval } from "timers/promises";
+// import { setTimeout, setInterval } from "timers/promises";
 
-await setTimeout(3000);
+// await setTimeout(3000);
 
-console.log("3초 뒤에 실행됩니다.");
+// console.log("3초 뒤에 실행됩니다.");
 
-for await (const start of setInterval(1000, Date.now())) {
-  console.log("1초마다 실행됩니다.", new Date(start));
+// for await (const start of setInterval(1000, Date.now())) {
+//   console.log("1초마다 실행됩니다.", new Date(start));
 
-}
+// }
+
+const add = (x) => {
+  return (y) => {
+    return (z) => {
+      // 최종 계산 후 값을 반환
+      return x + y + z;
+    };
+  };
+};
+
+const add5 = add(5);
+// console.log(add5(10)(15)); // 30
+add5(10);
+add5(15);
+console.log(add5(20)(25)); // 50

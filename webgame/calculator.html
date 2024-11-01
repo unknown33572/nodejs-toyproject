@@ -32,7 +32,7 @@
     <button id="num-1">1</button>
     <button id="num-2">2</button>
     <button id="num-3">3</button>
-    <button id="multiply">/</button>
+    <button id="divide">/</button>
   </div>
 
   <div class="row">
@@ -43,7 +43,117 @@
   </div>
 
   <script>
-    
+    let numOne = '';
+    let operator = '';
+    let numTwo = '';
+
+    const $operator = document.querySelector('#operator');
+    const $result = document.querySelector('#result');
+
+    //#region refactoring
+    // const onClickNumber = (num) => () => {
+    //   if (operator) {
+    //     numTwo += num;
+    //   } else {
+    //     numOne += num;
+    //   }
+    //   $result.value += num;
+    // }
+    //#endregion
+
+    const onClickNumber = (e) => {
+
+      if (!operator) {
+        numOne += e.target.textContent;
+        $result.value += e.target.textContent;
+        return;
+      }
+
+      if (!numTwo) {
+        $result.value = '';
+      }
+
+      numTwo += e.target.textContent;
+      $result.value += e.target.textContent;
+    };
+
+    const onClickOperator = (op) => () => {
+      console.log(op); 
+      if (numOne && !numTwo) {
+        operator = op;
+        $operator.value = op;
+      } else if (numOne && numTwo) {
+        onClickCalculate();
+        operator = op;
+        $operator.value = op;
+      } else {
+        alert('숫자를 먼저 입력하세요.');
+      }
+    };
+
+    const onClickCalculate = () => {
+      if (numOne && operator && numTwo) {
+        switch (operator) {
+          case '+':
+            $result.value = parseInt(numOne) + parseInt(numTwo);
+            break;
+          case '-':
+            $result.value = parseInt(numOne) - parseInt(numTwo);
+            break;
+          case '*':
+            $result.value = parseInt(numOne) * parseInt(numTwo);
+            break;
+          case '/':
+            $result.value = parseInt(numOne) / parseInt(numTwo);
+            break;
+          default:
+            break;
+        }
+        numOne = $result.value;
+        numTwo = '';
+        operator = '';
+        $operator.value = '';
+      } else {
+        alert('숫자를 먼저 입력하세요.');
+      }
+    }
+
+    //#region refactoring
+    // document.querySelector('#num-0').addEventListener('click', () => { onClickNumber('0'); });
+    // document.querySelector('#num-1').addEventListener('click', () => { onClickNumber('1'); });
+    // document.querySelector('#num-2').addEventListener('click', () => { onClickNumber('2'); });
+    // document.querySelector('#num-3').addEventListener('click', () => { onClickNumber('3'); });
+    // document.querySelector('#num-4').addEventListener('click', () => { onClickNumber('4'); });
+    // document.querySelector('#num-5').addEventListener('click', () => { onClickNumber('5'); });
+    // document.querySelector('#num-6').addEventListener('click', () => { onClickNumber('6'); });
+    // document.querySelector('#num-7').addEventListener('click', () => { onClickNumber('7'); });
+    // document.querySelector('#num-8').addEventListener('click', () => { onClickNumber('8'); });
+    // document.querySelector('#num-9').addEventListener('click', () => { onClickNumber('9'); });
+    //#endregion
+
+    document.querySelector('#num-0').addEventListener('click', onClickNumber);
+    document.querySelector('#num-1').addEventListener('click', onClickNumber);
+    document.querySelector('#num-2').addEventListener('click', onClickNumber);
+    document.querySelector('#num-3').addEventListener('click', onClickNumber);
+    document.querySelector('#num-4').addEventListener('click', onClickNumber);
+    document.querySelector('#num-5').addEventListener('click', onClickNumber);
+    document.querySelector('#num-6').addEventListener('click', onClickNumber);
+    document.querySelector('#num-7').addEventListener('click', onClickNumber);
+    document.querySelector('#num-8').addEventListener('click', onClickNumber);
+    document.querySelector('#num-9').addEventListener('click', onClickNumber);
+    document.querySelector('#plus').addEventListener('click',onClickOperator('+'));
+    document.querySelector('#minus').addEventListener('click', onClickOperator('-'));
+    document.querySelector('#multiply').addEventListener('click', onClickOperator('*'));
+    document.querySelector('#divide').addEventListener('click', onClickOperator('/'));
+    document.querySelector('#clear').addEventListener('click', () => {
+      numOne = '';
+      operator = '';
+      numTwo = '';
+      $operator.value = '';
+      $result.value = '';
+    });
+    document.querySelector('#calculate').addEventListener('click', onClickCalculate);
+
   </script>
 </body>
 </html>
